@@ -1,10 +1,10 @@
-# runestone
+# Runestone
 
 # Installation 
 This project requires
-* opencv
-* node
-* npm
+* opencv (https://opencv.org/)
+* node (https://nodejs.org/en/)
+* npm (https://www.npmjs.com/)
 
 Run **npm install** at the root of the project to install the dependecies.
 
