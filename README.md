@@ -1,10 +1,12 @@
 # Runestone
 
-# Installation 
-This project requires
+# Required software
+This project requires the following software:
 * opencv (https://opencv.org/)
 * node (https://nodejs.org/en/)
 * npm (https://www.npmjs.com/)
+
+# Installation 
 
 Run **npm install** at the root of the project to install the dependecies.
 
