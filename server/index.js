@@ -40,7 +40,7 @@ const connectClient = (ws) => {
             height: height,
             window: false,
             codec: ".jpg",
-            input: inputString
+            //input: inputString
         });
     }
     clients[index] = ws;
