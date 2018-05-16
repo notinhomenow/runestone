@@ -3,8 +3,8 @@ const cam = require("../build/Release/camera.node");
 const fs = require("fs");
 const websocketPort = 8080,
     webPort = 9999,
-    width = 640,
-    height = 360;
+    width = 960,
+    height = 540;
 
 var wss = new WebSocketServer({
     port: websocketPort
