@@ -1,1 +1,0 @@
-cmd_Release/camera.node := c++ -bundle -undefined dynamic_lookup -Wl,-no_pie -Wl,-search_paths_first -mmacosx-version-min=10.7 -arch x86_64 -L./Release -stdlib=libc++ -L/opt/local/lib  -o Release/camera.node Release/obj.target/camera/server/camera.o -lopencv_core -lopencv_highgui -lopencv_imgproc -lopencv_video -lopencv_ml

@@ -1,24 +1,15 @@
 {
-  "name": "runestone",
+  "name": "testopencv",
   "version": "1.0.0",
   "description": "",
-  "main": "server/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node server/index.js",
-    "install": "node-gyp rebuild"
-  },
-  "gypfile": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lowefredriksson/runestone.git"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/lowefredriksson/runestone/issues"
-  },
-  "homepage": "https://github.com/lowefredriksson/runestone#readme",
   "dependencies": {
+    "opencv": "^6.0.0",
     "ws": "^5.1.1"
   }
 }
