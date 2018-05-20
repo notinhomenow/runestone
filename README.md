@@ -13,7 +13,7 @@ This project requires the following software:
 Run **npm install** at the root of the project to install the dependecies.
 
 ## Server  
-To start the server run **npm start**.
+To start the server run **node index.js**.
 
 ## Client 
 To run the client, simply open the **index.html** file in a web browser. 
