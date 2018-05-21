@@ -1,9 +1,8 @@
 #canvas-map {
     height: 600;
     width: 600;
-    background-color: cornsilk;
-    border-width: 1px;
-    border-color: black;
+    background-color: white;
+    border: 1px solid gray;
     margin: 0px auto;
 }
 

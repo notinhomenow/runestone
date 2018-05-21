@@ -50,10 +50,11 @@ function drawDropoffPoints(dropoffPoints) {
 }
 
 function drawGrid() {
-  mapContext.strokeStyle = "blue"
+  mapContext.strokeStyle = "#000000"
+  mapContext.lineWidth=10;
   mapContext.beginPath();
   mapContext.moveTo(100, 0);
-  mapContext.lineTo(100,600);
+  mapContext.lineTo(100,300);
   mapContext.stroke();
   mapContext.beginPath();
   mapContext.moveTo(300, 0);
@@ -61,7 +62,7 @@ function drawGrid() {
   mapContext.stroke();
   mapContext.beginPath();
   mapContext.moveTo(500, 0);
-  mapContext.lineTo(500,600);
+  mapContext.lineTo(500,300);
   mapContext.stroke();
   mapContext.beginPath();
   mapContext.moveTo(0, 300);
@@ -69,37 +70,44 @@ function drawGrid() {
   mapContext.stroke();
 }
 
-let robotRect = { x: 300, y: 580, width: 20, height: 20 }
+const robotSize = { width: 30, height: 30 }
 
 function moveRobot(dropOffId) {
   console.log("move robot");
+  mapContext.clearRect(0, 0, 600, 600);
+  drawGrid()
+  drawDropoffPoints(dropoffPoints)
   const dp = dropoffPoints.find(d => d.id === dropOffId);
-  mapContext.clearRect(robotRect.x, robotRect.y, robotRect.width, robotRect.height);
-  robotRect = { x: dp.x, y: dp.y, width: robotRect.width, height: robotRect.height };
-  mapContext.fillStyle = "#000000";
-  mapContext.fillRect(robotRect.x, robotRect.y, robotRect.width, robotRect.height);
+  mapContext.fillStyle = "blue";
+  mapContext.fillRect(db.x, db.y, robotSize.width, robotSize.height);
 }
 
 function drawInitialMap() {
-
-  mapContext.fillStyle = "#000000";
-  mapContext.fillRect(robotRect.x, robotRect.y, robotRect.height, robotRect.width);
   drawGrid()
   drawDropoffPoints(dropoffPoints);
-  setTimeout(function () {
-    moveRobot(2);
-  }, 3000);
+  mapContext.fillStyle = "blue";
+  mapContext.fillRect(285, 560, robotSize.height, robotSize.width);
+  /*setTimeout(function() {
+    moveRobot(2)
+  }, 3000);*/
 }
 
 drawInitialMap();
 
 ws.onmessage = function (json) {
     var message = JSON.parse(json.data);
-    var img = new Image();
-    img.onload = function () {
-      context.drawImage(img, 0, 0);
-    };
-    img.src = "data:image/jpg;base64," + message.data;
-    //img.src = URL.createObjectURL(message.data.data);
+    switch (message.type) {
+      case 'frame':
+        var img = new Image();
+        img.onload = function () {
+          context.drawImage(img, 0, 0);
+        };
+        img.src = "data:image/jpg;base64," + message.data;
+        break;
+      case 'robot':
+        console.log("robot", message);
+        break; 
+      default: break;
+    }
 }
 
