@@ -5,32 +5,38 @@ var map = document.getElementById('canvas-map');
 var mapContext = map.getContext('2d');
 
 var dropoffPoints = [
-  {
-    x: 1,
-    y: 0,
+  { 
+    id: 0,
+    x: 100,
+    y: 10,
     name: "Point 1"
   },
   {
-    x: 2.5,
-    y: 0,
+    id: 1,
+    x: 300,
+    y: 10,
     name: "Point 2"
   },
   {
-    x: 4,
-    y: 0,
+    id: 2,
+    x: 500,
+    y: 10,
     name: "Point 3"
   },
   {
-    x: 0.2,
-    y: 2.5,
+    id: 3,
+    x: 10,
+    y: 300,
     name: "Point 4"
   },
   {
-    x: 4.8,
-    y: 2.5,
+    id: 4,
+    x: 590,
+    y: 300,
     name: "Point 5"
   }
 ]
+const dropoffPointSize = { width: 10, height: 0}
 
 function drawDropoffPoints(dropoffPoints) {
 
@@ -38,25 +44,54 @@ function drawDropoffPoints(dropoffPoints) {
   for (var i = 0; i < dropoffPoints.length; i++) {
     const dp = dropoffPoints[i];
     mapContext.beginPath();
-    mapContext.arc(100*dp.x, 100*dp.y + 10, 10,0,2*Math.PI);
+    mapContext.arc(dp.x, dp.y, dropoffPointSize.width,dropoffPointSize.height,2*Math.PI);
     mapContext.fill();
   }
+}
+
+function drawGrid() {
+  mapContext.strokeStyle = "blue"
+  mapContext.beginPath();
+  mapContext.moveTo(100, 0);
+  mapContext.lineTo(100,600);
+  mapContext.stroke();
+  mapContext.beginPath();
+  mapContext.moveTo(300, 0);
+  mapContext.lineTo(300,600);
+  mapContext.stroke();
+  mapContext.beginPath();
+  mapContext.moveTo(500, 0);
+  mapContext.lineTo(500,600);
+  mapContext.stroke();
+  mapContext.beginPath();
+  mapContext.moveTo(0, 300);
+  mapContext.lineTo(600,300);
+  mapContext.stroke();
+}
+
+let robotRect = { x: 300, y: 580, width: 20, height: 20 }
+
+function moveRobot(dropOffId) {
+  console.log("move robot");
+  const dp = dropoffPoints.find(d => d.id === dropOffId);
+  mapContext.clearRect(robotRect.x, robotRect.y, robotRect.width, robotRect.height);
+  robotRect = { x: dp.x, y: dp.y, width: robotRect.width, height: robotRect.height };
+  mapContext.fillStyle = "#000000";
+  mapContext.fillRect(robotRect.x, robotRect.y, robotRect.width, robotRect.height);
 }
 
 function drawInitialMap() {
 
   mapContext.fillStyle = "#000000";
-  mapContext.fillRect(250,460,20,20);
+  mapContext.fillRect(robotRect.x, robotRect.y, robotRect.height, robotRect.width);
+  drawGrid()
   drawDropoffPoints(dropoffPoints);
+  setTimeout(function () {
+    moveRobot(2);
+  }, 3000);
 }
 
 drawInitialMap();
-
-function updateMap(dropoffPoint, light ) {
-
-
-
-}
 
 ws.onmessage = function (data) {
     var img = new Image();
