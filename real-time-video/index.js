@@ -1,6 +1,6 @@
 const cv = require('opencv');
 const WebSocket = require('ws');
-const fps = 60;
+const fps = 40;
 const camInterval = 1000 / fps;
 
 
