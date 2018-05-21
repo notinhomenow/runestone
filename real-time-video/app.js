@@ -93,11 +93,13 @@ function drawInitialMap() {
 
 drawInitialMap();
 
-ws.onmessage = function (data) {
+ws.onmessage = function (json) {
+    var message = JSON.parse(json.data);
     var img = new Image();
     img.onload = function () {
       context.drawImage(img, 0, 0);
     };
-    img.src = URL.createObjectURL(data.data);
+    img.src = "data:image/jpg;base64," + message.data;
+    //img.src = URL.createObjectURL(message.data.data);
 }
 
