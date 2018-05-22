@@ -18,7 +18,6 @@ class Server(object):
   client = None
 
   def __init__(self, host, port):
-	threading.Thread.__init__(self)
     self.socket = socket.socket()
     self.socket.bind((host, port))
     self.socket.listen(self.backlog)
