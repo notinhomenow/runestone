@@ -1,20 +1,39 @@
-#file:client.py
-from jsonsocket import Client
-import time
+import socket
+import sys
+
+try:
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+except socket.error:
+	print("Failed to connect")
+	sys.exit();
+	
+print("Socket Created")
 
 host = '192.168.124.1'
-port = 8080
+port = 8888
 
-data ={
-	'temperature': 'good',
-	'humidity' : 'acceptable',
-	'drop-off' : 'fix'
-	}
+try:
+	remote_ip = socket.gethostbyname(host)
+except socket.gaierror:
+	print("Hostname counld not be resolved")
+	sys.exit()
+	
+print("IP Adresss: " + remote_ip)
+
+s.connect((remote_ip,port))
+
+print("Socket Connected to " + host + "using IP " + remote_ip)
 
 while True:
-	client = Client()
-	client.connect(host, port).send(data)
-	response = client.recv()
-	print "client", response
-	client.close()
-	time.sleep(1)
+	message = input("please input the text: ")
+	try:
+		s.sendall(message)
+	except socket.error:
+		print("Did not send successfully")
+		sys.exit()
+
+	print("Message Sent Successfully")
+	reply = s.recv(1024)
+	print(reply.decode())
+
+s.close()
